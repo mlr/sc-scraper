@@ -1,3 +1,6 @@
+.DS_Store
+*.mp3
+
 *.gem
 *.rbc
 .bundle
