@@ -9,8 +9,8 @@ doc.xpath('//div[@class="action_button_container"]/a').each do |node|
     url      = node.attr('href')
     filename = "#{title}.mp3"
 
-    unless File.exist?(filename)
-      `curl -L #{url} -o '#{filename}'`
+    unless File.exist?("downloads/#{filename}")
+      `curl -L #{url} -o 'downloads/#{filename}'`
     else
       puts "#{filename} already downloaded."
     end
