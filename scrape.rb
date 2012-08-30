@@ -33,13 +33,13 @@ paged_urls.each do |page|
     else
       next
     end
-    
+
     urls[title] = url
   end
 end
 
 urls.each do |key,value|
-  filename = "#{key}.mp3"
+  filename = "downloads/#{key}.mp3"
 
   unless File.exist?(filename)
     puts "Downloading #{key}..."
