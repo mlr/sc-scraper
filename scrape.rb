@@ -7,12 +7,10 @@ downloader = Mechanize.new
 downloader.pluggable_parser.default = Mechanize::Download
 
 print "Enter Soundcloud username: "
-username = gets
-username = username.chomp
+username = gets.chomp
 
 print "Enter how many pages to scrape: "
-count = gets
-count = count.chomp
+count = gets.chomp
 
 urls = {}
 base = "http://soundcloud.com/#{username}"
@@ -26,15 +24,9 @@ paged_urls.each do |page|
   tunes = page.css('ul.tracks-list li.player')
   tunes.each do |tune|
     title = tune.css('div.info-header h3 a').text
-    link = tune.css('div.actionbar div.actions div.primary a.download')
-
-    unless link.empty?
-      url = "http://soundcloud.com" + link.attr('href')
-    else
-      next
-    end
-
-    urls[title] = url
+    link  = tune.css('div.actionbar div.actions div.primary a.download')
+    next if link.empty?
+    urls[title] = "http://soundcloud.com" + link.attr('href')
   end
 end
 
