@@ -3,7 +3,7 @@ GEM
   specs:
     domain_name (0.5.13)
       unf (>= 0.0.5, < 1.0.0)
-    http-cookie (1.0.1)
+    http-cookie (1.0.2)
       domain_name (~> 0.5)
     mechanize (2.7.2)
       domain_name (~> 0.5, >= 0.5.1)
@@ -15,11 +15,9 @@ GEM
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
     mime-types (1.25)
-    mini_portile (0.5.1)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9)
-    nokogiri (1.6.0)
-      mini_portile (~> 0.5.0)
+    nokogiri (1.5.10)
     ntlm-http (0.1.1)
     unf (0.1.2)
       unf_ext
@@ -31,4 +29,4 @@ PLATFORMS
 
 DEPENDENCIES
   mechanize
-  nokogiri
+  nokogiri (= 1.5.10)
