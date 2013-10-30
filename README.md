@@ -1,6 +1,3 @@
-sc-scraper
-==========
-
 This is a simple ruby program to scrape SoundCloud tracks automatically given a username.
 
 **Usage**
