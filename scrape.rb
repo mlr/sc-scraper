@@ -1,19 +1,15 @@
 #! /usr/bin/env ruby
 require 'rubygems'
 require 'bundler/setup'
-
-require 'open-uri'
-require 'rubygems'
-require 'nokogiri'
 require 'mechanize'
+require 'ruby-progressbar'
 
-downloader = Mechanize.new
-downloader.pluggable_parser.default = Mechanize::Download
+agent = Mechanize.new
 
 print "Enter Soundcloud username: "
 username = gets.chomp
 
-print "Enter how many pages to scrape: "
+print "Enter number of pages to scrape: "
 count = gets.chomp
 
 urls = {}
@@ -23,24 +19,32 @@ paged_urls = (1..count.to_i).collect do |num|
   "#{base}/tracks?format=html&page=#{num}"
 end
 
+scrape_progress = ProgressBar.create(title: "Finding free downloads", total: paged_urls.count, length: 100)
+
 paged_urls.each do |page|
-  page = Nokogiri::HTML(open(page))
-  tunes = page.css('ul.tracks-list li.player')
+  page  = agent.get(page)
+  tunes = page.search('ul.tracks-list li.player')
+
   tunes.each do |tune|
     title = tune.css('div.info-header h3 a').text
     link  = tune.css('div.actionbar div.actions div.primary a.download')
     next if link.empty?
     urls[title] = "http://soundcloud.com" + link.attr('href')
   end
+
+  scrape_progress.increment
 end
 
-urls.each do |key,value|
-  filename = "downloads/#{key}.mp3"
+download_progress = ProgressBar.create(total: urls.count, length: 100)
+urls.each do |title, url|
+  filename = "downloads/#{title}.mp3"
 
   unless File.exist?(filename)
-    puts "Downloading #{key}..."
-    downloader.get(value).save(filename)
+    download_progress.log "Downloading #{title}"
+    agent.get(url).save(filename)
   else
-    puts "Skipped file (already exists)..."
+    download_progress.log "Skipped #{title}; already downloaded"
   end
+
+  download_progress.increment
 end

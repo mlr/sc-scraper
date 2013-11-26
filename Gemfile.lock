@@ -19,6 +19,7 @@ GEM
     net-http-persistent (2.9)
     nokogiri (1.5.10)
     ntlm-http (0.1.1)
+    ruby-progressbar (1.2.0)
     unf (0.1.2)
       unf_ext
     unf_ext (0.0.6)
@@ -29,4 +30,4 @@ PLATFORMS
 
 DEPENDENCIES
   mechanize
-  nokogiri (= 1.5.10)
+  ruby-progressbar
